@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>Brian's Pizza</title>
+<link rel="stylesheet" type="text/css" href="pizzastyles.css">
+<script src="js/jquery.min.js"></script>
+<!-- jQuery code for implement logic for select pizza size and add toppings checkbox -->
+<script type="text/javascript">
+$(document).ready(function () {
+var size = 0;
+$('select').change(function () {
+size = ($(this).val());
+addValue(size);
+});
+addValue(size);
+function addValue(size) {
+var total = 0;
+function updateTextArea() {
+var allVals = [];
+$('#checkbox_container :checked').each(function () {
+allVals.push($(this).val());
+});
+if (size === 0) {
+size = 10;
+}
+total = parseFloat(size) + parseFloat(eval(allVals.join("+")));
+if (isNaN(total)) {
+if (size === 0) {
+total = 10;
+}
+else {
+total = size;
+}
+}
+$('p#total span').html(" $ " + total);
+}
+$(function () {
+$('#checkbox_container input').click(updateTextArea);
+updateTextArea();
+});
+}
+});
+</script>
+</head>
+<body>
+
+<div id="main">
+
+<div id="container">
+<h2>BRIAN'S PIZZA SHOP</h2>
+<hr/>
+
+
+<form action="process.php" method="post">
+<label>Select Pizza Size :</label>
+<select name="pizza_type" >
+<option value="10">Small Pizza - $10.00</option>
+<option value="15">Medium Pizza - $15.00</option>
+<option value="20">Large Pizza - $20.00</option>
+</select>
+<br><br>
+
+<center><h3>Add Toppings which you want. </h3></center>
+<div id="checkbox_container">
+
+<div id="chk">
+<p>Onion</p>
+<input class ="chk1" type='checkbox' name='topping1' value='2.00' id="topping1"/><label class ="chk1" for="topping1"></label>
+<p>$2.00</p>
+</div>
+
+<div id="chk">
+<p>Peppers</p>
+<input class ="chk2" type='checkbox' name='topping2' value='3.00' id="topping2"/><label class ="chk2" for="topping2"></label>
+<p>$3.00</p>
+</div>
+
+<div id="chk">
+<p>Mushrooms</p>
+<input class ="chk3" type='checkbox' name='topping3' value='2.25' id="topping3"/><label class ="chk3" for="topping3"></label>
+<p>$2.25</p>
+</div>
+
+<div id="chk">
+<p>cheese</p>
+<input class ="chk4" type='checkbox' name='topping4' value='3.50' id="topping4"/><label class ="chk4" for="topping4"></label>
+<p>$3.50</p>
+</div>
+</div>
+<input type="submit" value=" CHECKOUT " name="submit">
+</form>
+</div>
+
+
+</body>
+</html>
+
